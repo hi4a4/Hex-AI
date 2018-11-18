@@ -16,3 +16,9 @@ A neural network to play the game hex: http://www.lutanho.net/play/hex.html
 - [ ] Merge all game info to a csv file
 - [ ] Figure out how to merge all csv files into a single csv file
 - [ ] Implement recurrent neural network
+
+## Deliverables
+
+- [ ] Add scraped data to ~/data400_share/share/hex_scrapes directory **Wednesday November 28**
+- [ ] Presentation in class **Friday, December 7**
+- [ ] 
