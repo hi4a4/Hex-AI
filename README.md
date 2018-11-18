@@ -10,8 +10,8 @@ A neural network to play the game hex: http://www.lutanho.net/play/hex.html
 
 ## Task List
 
-- [X] Scrape a user's game list
-- [X] Scrape a game's info
+- [X] Scrape a user's game list <img width="20" height="20" alt="hanson" src="https://avatars3.githubusercontent.com/u/24231626?s=400&v=4">
+- [X] Scrape a game's info <img width="20" height="20" alt="hanson" src="https://avatars3.githubusercontent.com/u/24231626?s=400&v=4">
 - [ ] Loop through game ids gathering info for each game
 - [ ] Merge all game info to a csv file
 - [ ] Figure out how to merge all csv files into a single csv file
