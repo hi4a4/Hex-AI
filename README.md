@@ -3,7 +3,7 @@ A neural network to play the game hex: http://www.lutanho.net/play/hex.html
 
 ## Group Members
 
-- Jesse Bao ![jesse](https://avatars3.githubusercontent.com/u/15055948?s=40&v=4)
+- Jesse Bao ![jesse](https://avatars3.githubusercontent.com/u/15055948?v=4&s=4)
 - Hanson Egbert
 - Joshua Frederick
 - Anna Rullona
