@@ -15,7 +15,7 @@ A neural network to play the game hex: http://www.lutanho.net/play/hex.html
 - [X] Loop through game ids gathering info for each game <img width="20" height="20" alt="anna" src="https://avatars2.githubusercontent.com/u/25042420?s=400&v=4">
 - [X] Merge all game info to a csv file <img width="20" height="20" alt="anna" src="https://avatars2.githubusercontent.com/u/25042420?s=400&v=4">
 - [ ] Figure out how to merge all csv files into a single csv file (Anna is almost done with)
-- [X] Make a function to split a game into an input and output for our network to learn <img width="20" height="20" alt="anna" src="https://avatars2.githubusercontent.com/u/25042420?s=400&v=4">
+- [X] Make a function to split a game into an input and output for our network to learn <img width="20" height="20" alt="hanson" src="https://avatars3.githubusercontent.com/u/24231626?s=400&v=4">
 - [ ] Implement recurrent neural network
 
 ## Deliverables
