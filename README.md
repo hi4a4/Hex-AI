@@ -23,7 +23,7 @@ A neural network to play the game hex: http://www.lutanho.net/play/hex.html
 
 ## Deliverables
 
-- [ ] Add scraped data to ~/data400_share/share/hex_scrapes directory **Wednesday November 28**
+- [X] Add scraped data to ~/data400_share/share/hex_scrapes directory **Wednesday November 28**
 - [ ] Presentation in class **Friday, December 7**
 - [ ] Add one completed player.py file to /data400_share folder **before Friday, December 7**
 - [ ] Writeup by e-mail to Professor Dekhtyar and Sun **Wednesday December 12**
