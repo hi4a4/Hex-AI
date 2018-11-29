@@ -16,7 +16,10 @@ A neural network to play the game hex: http://www.lutanho.net/play/hex.html
 - [X] Merge all game info to a csv file <img width="20" height="20" alt="anna" src="https://avatars2.githubusercontent.com/u/25042420?s=400&v=4">
 - [ ] Figure out how to merge all csv files into a single csv file (Anna is almost done with)
 - [X] Make a function to split a game into an input and output for our network to learn <img width="20" height="20" alt="hanson" src="https://avatars3.githubusercontent.com/u/24231626?s=400&v=4">
-- [ ] Implement recurrent neural network
+- [ ] Implement neural network
+  - [ ] Reinforcement Learning <img width="20" height="20" alt="josh" src="https://avatars2.githubusercontent.com/u/26757800?s=400&v=4">
+  - [ ] Generate Training Data <img width="20" height="20" alt="josh" src="https://avatars2.githubusercontent.com/u/26757800?s=400&v=4">
+- [ ] Implement a neural network that inputs a board-state and outputs the probability of black/white wins
 
 ## Deliverables
 
