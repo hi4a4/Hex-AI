@@ -2,9 +2,9 @@ import re
 
 import numpy as np
 
-from board import Board
-from game import Game
-from generative_methods import Simple_Generator
+from hex.board import Board
+from hex.game import Game
+from generative_method import Simple_Generator
 
 def getBoard(board):    
     return np.take(board.state[1:14], range(1,14), axis=1)
@@ -12,21 +12,15 @@ def getBoard(board):
 
 def generate_games(n, player1, player2, generator=None):
     if generator is None:
-        generator = Simple_Generator(player1, player2)
-    movelists, winners = [], []
-    for i in range(n):
-        movelist, winner = generator.generate()
-        movelists.append(movelist)
-        winners.append(winner)
+        generator = Simple_Generator()
+    movelists, winners = generator.generate(n, player1, player2)
     return movelists, winners
 
 def makeInputOutputTotal(moveLists, winners, scraped=True):
-    board_states_cumulative = []
-    winners_cumulative = []
-    for movelist, winner in zip(moveLists, winners):
-        board_states, winners = makeInputOutput(movelist, winner, scraped)
-        board_states_cumulative.append(board_states)
-        winners_cumulative.append(winners)
+    
+    total = map(lambda args: makeInputOutput(args[0], args[1], args[2]),
+                zip(moveLists, winners, [scraped]*len(winners)))
+    board_states_cumulative, winners_cumulative = zip(*total)
     return (np.concatenate(board_states_cumulative, axis=0),
             np.concatenate(winners_cumulative, axis=0))
 
