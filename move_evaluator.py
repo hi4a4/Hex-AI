@@ -16,15 +16,23 @@ class MoveEvaluator():
         """
         raise NotImplementedError
         
-class BlackWinMoveEvaluator(MoveEvaluator):        
+class BlackWinMoveEvaluator(MoveEvaluator):
     def __init__(self, probabilityModel):
         self.probabilityModel = probabilityModel
        
     def evaluateMoves(self, moves, board):
+        color = np.prod(board[board != 0].shape) % 2
+        if color == 0:
+            color += 2
+        print(color)
         states = np.repeat(board.state[np.newaxis, 1:-1, 1:-1], len(moves), axis=0)
         for i, state in enumerate(states):
-            state[moves[i][0] - 1, board.col_to_number[moves[i][1]] - 1] = 1
-        return self.probabilityModel.predict(states.reshape(list(states.shape) + [1]))[:, 0]
+            state[moves[i][0] - 1, board.col_to_number[moves[i][1]] - 1] = color
+        evals = self.probabilityModel.predict(states.reshape(list(states.shape) + [1]))
+        if color == 1:
+            return 1 - evals[:, 1]
+        else:
+            return evals[:, 0]
 
 class TestMoveEvaluator(MoveEvaluator):        
     def evaluateMoves(self, moves, board):
@@ -36,7 +44,10 @@ class SimpleMoveEvaluator(MoveEvaluator):
         self.probabilityModel = probabilityModel
         
     def evaluateMoves(self, moves, board):
+        color = np.prod(board[board != 0].shape) % 2
+        if color == 0:
+            color += 2
         states = np.repeat(board.state[np.newaxis, 1:-1, 1:-1], len(moves), axis=2)
         for i, state in enumerate(states):
-            state[moves[i][0] - 1, board.col_to_number[moves[i][1]] - 1] = 0
-        return self.probabilityModel.predict(states.reshape(list(states.shape) + [1]))[:, 0]
+            state[moves[i][0] - 1, board.col_to_number[moves[i][1]] - 1] = color
+        return self.probabilityModel.predict(states.reshape(list(states.shape) + [1]))[:, color]
