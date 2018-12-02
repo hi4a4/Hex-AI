@@ -1,12 +1,14 @@
 import string
 
+import numpy as np
+
 class MoveEvaluator():
-    def evaluateMove(self, move, board):
-        """given a move and the current board return a evaluation
-           of the move such that better moves return higher scores
+    def evaluateMoves(self, moves, board):
+        """give moves and the current board return a evaluation
+           of the moves such that better moves return higher scores
            
         Args:
-        - move (2-Tuple) : a move.
+        - move (list<2-Tuple>) : a list of moves.
         - board (Board) : the current board state
         
         Returns (double):
@@ -14,15 +16,27 @@ class MoveEvaluator():
         """
         raise NotImplementedError
         
-class TestMoveEvaluator(MoveEvaluator):        
-    def evaluateMove(self, move, board):
-        return 1
+class BlackWinMoveEvaluator(MoveEvaluator):        
+    def __init__(self, probabilityModel):
+        self.probabilityModel = probabilityModel
+       
+    def evaluateMoves(self, moves, board):
+        states = np.repeat(board.state[np.newaxis, 1:-1, 1:-1], len(moves), axis=0)
+        for i, state in enumerate(states):
+            state[moves[i][0] - 1, board.col_to_number[moves[i][1]] - 1] = 1
+        return self.probabilityModel.predict(states.reshape(list(states.shape) + [1]))[:, 0]
 
+class TestMoveEvaluator(MoveEvaluator):        
+    def evaluateMoves(self, moves, board):
+        return np.ones(len(moves))
+
+    
 class SimpleMoveEvaluator(MoveEvaluator):
     def __init__(self, probabilityModel):
         self.probabilityModel = probabilityModel
         
-    def evaluateMove(self, move, board):
-        state = board.state[1:-1, 1:-1]
-        state[move[0] - 1, board.col_to_number(move[1]) - 1]
-        return self.probabilityModel.predict(state)
+    def evaluateMoves(self, moves, board):
+        states = np.repeat(board.state[np.newaxis, 1:-1, 1:-1], len(moves), axis=2)
+        for i, state in enumerate(states):
+            state[moves[i][0] - 1, board.col_to_number[moves[i][1]] - 1] = 0
+        return self.probabilityModel.predict(states.reshape(list(states.shape) + [1]))[:, 0]

@@ -17,36 +17,33 @@ class MoveGenerator():
         
 class ExhaustiveGenerator(MoveGenerator):
     def generateMove(self, board, evaluator):
-        evaluate = lambda move : evaluator.evaluate_move(move, board)
         possibleMoves = board.getPossibleMoves()
         np.random.shuffle(possibleMoves)
-        return possibleMoves[np.argmax(map(evaluate, possibleMoves))]
+        return possibleMoves[np.argmax(evaluator.evaluateMoves(possibleMoves, board))]
     
-class ExhaustiveProbalisticGenerator(MoveGenerator):
+class ExhaustiveProbabilisticGenerator(MoveGenerator):
     def __init__(self, transformation=None):
         if transformation is None:
             transformation = lambda x : x
         self.transformation = transformation
 
     def generateMove(self, board, evaluator):
-        evaluate = lambda move : evaluator.evaluate_move(move, board)
         possibleMoves = board.getPossibleMoves()
-        moveProbs = np.array(map(evaluated, possibleMoves))
+        moveProbs = np.array(evaluator.evaluateMoves(possibleMoves, board))
         moveProbs = self.transformation(moveProbs)
         moveProbs = moveProbs / sum(moveProbs)
-        return np.random.choice(possibleMoves, 1, p=moveProbs)
+        return possibleMoves[np.random.choice(len(possibleMoves), 1, p=moveProbs)[0]]
     
 class SamplingGenerator(MoveGenerator):
     def __init__(self, num_samples):
         self.num_samples = num_samples
 
     def generateMove(self, board, evaluator):
-        evaluate = lambda move : evaluator.evaluate_move(move, board)
         possibleMoves = board.getPossibleMoves()
-        sample = np.random.choice(possibleMoves, size=self.num_samples)
-        return (sample[np.argmax(map(evaluate, sample))])
+        sample = [possibleMoves[i] for i in np.random.choice(len(possibleMoves), size=self.num_samples)]
+        return sample[np.argmax(evaluator.evaluateMoves(sample, board))]
     
-class SamplingProbalisticGenerator(MoveGenerator):
+class SamplingProbabilisticGenerator(MoveGenerator):
     def __init__(self, num_samples, transformation=None):
         if transformation is None:
             transformation = lambda x : x
@@ -54,13 +51,12 @@ class SamplingProbalisticGenerator(MoveGenerator):
         self.num_samples = num_samples
 
     def generateMove(self, possibleMoves, evaluator):
-        evaluate = lambda move : evaluator.evaluate_move(move, board)
         possibleMoves = board.getPossibleMoves()
-        sample = np.random.choice(possibleMoves, size=self.num_samples)
-        moveProbs = np.array(map(evaluate, sample))
+        sample = [possbleMoves[i] for i in np.random.choice(len(possibleMoves), size=self.num_samples)]
+        moveProbs = np.array(evaluator.evaluateMoves(sample, board))
         moveProbs = self.transformation(moveProbs)
         moveProbs = moveProbs / sum(moveProbs)
-        return np.random.choice(sample, 1, p=moveProbs)
+        return sample[np.random.choice(len(sample), 1, p=moveProbs)[0]]
 
 class MonteCarloGenerator(MoveGenerator):
     def generateMove(self, board, evaluator):
