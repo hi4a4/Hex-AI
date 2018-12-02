@@ -41,3 +41,19 @@ class HumanPlayer(Player):
             else:
                 print("That is not an allowable move.")
         return (r, c)
+
+
+    
+class ModelPlayer(Player):
+    """
+        Args:
+        - generator (MoveGenerator): chooses the next move
+        - evaluator (MoveEvaluator): move evaluator
+    """
+    def __init__(self, generator, evaluator):
+        self.generator = generator
+        self.evaluator = evaluator
+        
+    def move(self, board):
+        return self.generator.generateMove(board, self.evaluator)
+    
