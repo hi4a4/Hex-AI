@@ -83,6 +83,27 @@ class Board:
             (r, c - 1), (r, c + 1),
             (r + 1, c - 1), (r + 1, c)
         ]
+        
+    def getStateForPlayer(self, player):
+        """Get a Numpy array of the board state for the player.
+        
+        Args
+        - player (int): 1 for black, 2 for white
+        
+        Returns (np.ndarray)
+        A self.size x self.size Numpy array. A cell is 1 if that
+        space is occupied by player. A cell is -1 if that space
+        is occupied by player's opponent. And a cell is 0 if that
+        space is unoccupied.
+        """
+        # Get the main board without the edges
+        main_board = self.state[1:self.size + 1, 1:self.size + 1]
+        
+        # Return Numpy array, consisting of three types of entries:
+        #   cell == player   => -1 + 2 =  1
+        #   cell == 0        =>  0 + 0 =  0
+        #   cell == opponent => -1 + 0 = -1
+        return (-1) * (main_board > 0) + 2 * (main_board == player)
     
     def checkWin(self, player):
         """Check whether player has won.

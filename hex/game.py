@@ -1,4 +1,4 @@
-from . import Board
+from .board import Board
 
 class Game:
     
@@ -14,6 +14,8 @@ class Game:
         self.board = Board()
         self.black_player = black_player
         self.white_player = white_player
+        self.black_player.role = "black"
+        self.white_player.role = "white"
         
     def play(self, verbose=True):
         """Plays an entire game.

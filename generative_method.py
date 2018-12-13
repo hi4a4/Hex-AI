@@ -18,4 +18,4 @@ class Simple_Generator(Generative_Method):
         return game.play(verbose=False)
 
     def generate(self, n, player1, player2):
-        return zip(*map(Simple_Generator.gen_wrap, [(player2, player2)] * n))
+        return zip(*map(Simple_Generator.gen_wrap, [(player1, player2)] * n))

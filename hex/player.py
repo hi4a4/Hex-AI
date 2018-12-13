@@ -3,6 +3,9 @@ import random
 
 class Player(object):
 
+    def __init__(self):
+        self.role = None
+        
     def move(self, board):
         """Given current board, return the next move.
            
@@ -55,5 +58,5 @@ class ModelPlayer(Player):
         self.evaluator = evaluator
         
     def move(self, board):
-        return self.generator.generateMove(board, self.evaluator)
+        return self.generator.generateMove(board, self.evaluator, self.role)
     
